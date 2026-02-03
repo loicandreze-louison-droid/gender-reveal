@@ -60,7 +60,10 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             max-width: 80%;
             width: 90%;
+            margin: 0 12px;
+            box-sizing: border-box;
             z-index: 1;
+            overflow: hidden;
         }
         @media (max-width: 480px) {
             .container {
@@ -79,6 +82,11 @@
             }
             .result {
                 font-size: 28px;
+            }
+            .family-visual .parent,
+            .family-visual .echo,
+            .family-visual .arrow {
+                transform: scale(0.8);
             }
         }
 
@@ -140,22 +148,40 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            margin: 20px 0;
-            }
+            margin: 20px auto;
+            max-width: 90%;
+            width: 90%;
+            box-sizing: border-box;
+            padding: 12px; /* garde une zone tampon pour éviter tout débordement visuel */
+        }
 
-.family-visual img {
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-}
+        .family-visual img {
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
 
-.parent {
-    width: 30%;
-}
+        body.reveal-mode .family-visual .parent,
+        body.reveal-mode .family-visual .echo {
+            transform: scale(0.9);
+        }
 
-.echo {
-    width: 110px;
-    /*border: 3px solid #ff8fb1;*/
-    }
+        .parent {
+            width: 30%;
+            max-width: 38%;
+            height: auto;
+            box-sizing: border-box;
+        }
+
+        .echo {
+            width: 110px;
+            max-width: 24%;
+            height: auto;
+            box-sizing: border-box;
+        }
 
         .arrow {
             font-size: 26px;
@@ -272,6 +298,7 @@
     }
 
     function reveal() {
+        document.body.classList.add("reveal-mode");
         document.body.classList.add("pink-mode");
         const result = document.getElementById("result");
         result.style.display = "block";
